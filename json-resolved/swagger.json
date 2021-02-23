@@ -1,0 +1,186 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "ADYPU",
+    "description" : "Documentation for ADYPU API services\n",
+    "contact" : {
+      "email" : "pranay.narang@adypu.edu.in"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/Pranay-Narang/ADYPU/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "https://services.adypu.edu.in/api",
+    "description" : "To-be API service"
+  } ],
+  "tags" : [ {
+    "name" : "students",
+    "description" : "Service for all operations related to students"
+  }, {
+    "name" : "marks",
+    "description" : "Service for CRUD operations on marks"
+  }, {
+    "name" : "attendance",
+    "description" : "Service for fetching and updating attendance"
+  }, {
+    "name" : "templates",
+    "description" : "Service for fetching and adding templates"
+  }, {
+    "name" : "sessionplan",
+    "description" : "Service for CRUD operations on session plan"
+  }, {
+    "name" : "courses",
+    "description" : "Service for CRUD operations on courses"
+  }, {
+    "name" : "subjects",
+    "description" : "Service for adding subjects and students to subjects"
+  }, {
+    "name" : "commendations",
+    "description" : "Service for CRUD on commendations"
+  }, {
+    "name" : "fees",
+    "description" : "Service for fetching and updating fees"
+  }, {
+    "name" : "feedback",
+    "description" : "Service for faculty feedback operations"
+  } ],
+  "paths" : {
+    "/students" : {
+      "post" : {
+        "tags" : [ "students" ],
+        "summary" : "Onboarding a new student",
+        "responses" : {
+          "200" : {
+            "description" : "Student onboarding successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Student"
+                }
+              }
+            }
+          },
+          "409" : {
+            "description" : "Duplicate student record"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Student" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "string",
+            "example" : "true"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "urn" : {
+            "type" : "string"
+          },
+          "name" : {
+            "$ref" : "#/components/schemas/Name"
+          },
+          "semester" : {
+            "type" : "integer",
+            "example" : 1
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "primaryemail" : {
+            "type" : "string"
+          },
+          "religion" : {
+            "type" : "string"
+          },
+          "father" : {
+            "$ref" : "#/components/schemas/Parents"
+          },
+          "mother" : {
+            "$ref" : "#/components/schemas/Parents"
+          },
+          "guardian" : {
+            "$ref" : "#/components/schemas/Parents"
+          },
+          "category" : {
+            "type" : "string"
+          },
+          "nationality" : {
+            "type" : "string"
+          },
+          "gender" : {
+            "type" : "string"
+          },
+          "qualification" : {
+            "$ref" : "#/components/schemas/Qualifications"
+          },
+          "bloodgroup" : {
+            "type" : "string"
+          },
+          "dob" : {
+            "type" : "string"
+          },
+          "familyincome" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Name" : {
+        "type" : "object",
+        "properties" : {
+          "first" : {
+            "type" : "string"
+          },
+          "middle" : {
+            "type" : "string"
+          },
+          "last" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Parents" : {
+        "type" : "object",
+        "properties" : {
+          "occupation" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "phone" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "Qualifications" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "migrationcert" : {
+            "type" : "string"
+          },
+          "leavingcert" : {
+            "type" : "string"
+          },
+          "marksheet" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
