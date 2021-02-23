@@ -74,6 +74,62 @@
           "$ref" : "#/components/requestBodies/Student"
         }
       }
+    },
+    "/students/{id}" : {
+      "get" : {
+        "tags" : [ "students" ],
+        "summary" : "Get all information about student",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Student"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "students" ],
+        "summary" : "Updating an existing student",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Student onboarding successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Student"
+                }
+              }
+            }
+          },
+          "409" : {
+            "description" : "Duplicate student record"
+          }
+        },
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Student"
+        }
+      }
     }
   },
   "components" : {
