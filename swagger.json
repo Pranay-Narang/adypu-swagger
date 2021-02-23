@@ -129,6 +129,26 @@
         "requestBody" : {
           "$ref" : "#/components/requestBodies/Student"
         }
+      },
+      "delete" : {
+        "tags" : [ "students" ],
+        "summary" : "Delete an existing student",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Student deletion successful"
+          },
+          "404" : {
+            "description" : "Non-existent student record"
+          }
+        }
       }
     }
   },
