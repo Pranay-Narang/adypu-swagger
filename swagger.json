@@ -122,8 +122,8 @@
               }
             }
           },
-          "409" : {
-            "description" : "Duplicate student record"
+          "404" : {
+            "description" : "Non-existent student record"
           }
         },
         "requestBody" : {
