@@ -26,6 +26,9 @@
     "name" : "students - public",
     "description" : "Service for fetching public profiles of all students"
   }, {
+    "name" : "students - eligible",
+    "description" : "Service for fetching eligible students"
+  }, {
     "name" : "marks",
     "description" : "Service for CRUD operations on marks"
   }, {
@@ -139,7 +142,7 @@
       },
       "delete" : {
         "tags" : [ "students" ],
-        "summary" : "Delete an existing student",
+        "summary" : "Deleting an existing student",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -265,6 +268,95 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/StudentPublic"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Non-existent student id"
+          }
+        }
+      }
+    },
+    "/students/eligible" : {
+      "get" : {
+        "tags" : [ "students - eligible" ],
+        "summary" : "Fetching eligible student profiles",
+        "parameters" : [ {
+          "name" : "school",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "branch",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "program",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "semester",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/StudentEligible"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/students/eligible/{id}" : {
+      "get" : {
+        "tags" : [ "students - eligible" ],
+        "summary" : "Fetching eligibility of a specific student",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StudentEligible"
                 }
               }
             }
@@ -476,6 +568,23 @@
             "type" : "string"
           }
         }
+      },
+      "StudentEligible" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "URN" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "eligible" : {
+            "type" : "string"
+          }
+        }
       }
     },
     "requestBodies" : {
@@ -496,7 +605,8 @@
               "$ref" : "#/components/schemas/StudentPublicRequest"
             }
           }
-        }
+        },
+        "required" : true
       }
     }
   }
