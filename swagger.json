@@ -23,6 +23,9 @@
     "name" : "students",
     "description" : "Service for all operations related to students"
   }, {
+    "name" : "students - public",
+    "description" : "Service for fetching public profiles of all students"
+  }, {
     "name" : "marks",
     "description" : "Service for CRUD operations on marks"
   }, {
@@ -148,6 +151,105 @@
           "404" : {
             "description" : "Non-existent student record"
           }
+        }
+      }
+    },
+    "/students/public" : {
+      "get" : {
+        "tags" : [ "students - public" ],
+        "summary" : "Fetching public profiles of all students",
+        "parameters" : [ {
+          "name" : "school",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "branch",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "program",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/StudentPublic"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Query parameter not found"
+          }
+        }
+      }
+    },
+    "/students/public/{id}" : {
+      "get" : {
+        "tags" : [ "students - public" ],
+        "summary" : "Fetching public profile of student with id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StudentPublic"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Non-existent student id"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "students - public" ],
+        "summary" : "Updating the public profile of a student",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StudentPublic"
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/StudentPublic"
         }
       }
     }
@@ -324,6 +426,37 @@
             "type" : "string"
           }
         }
+      },
+      "StudentPublic" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "URN" : {
+            "type" : "string"
+          },
+          "photo" : {
+            "type" : "string"
+          },
+          "linkedin" : {
+            "type" : "string"
+          }
+        }
+      },
+      "StudentPublicRequest" : {
+        "type" : "object",
+        "properties" : {
+          "photo" : {
+            "type" : "string"
+          },
+          "linkedin" : {
+            "type" : "string"
+          }
+        }
       }
     },
     "requestBodies" : {
@@ -336,6 +469,15 @@
           }
         },
         "required" : true
+      },
+      "StudentPublic" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/StudentPublicRequest"
+            }
+          }
+        }
       }
     }
   }
