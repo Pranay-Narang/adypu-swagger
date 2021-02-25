@@ -32,6 +32,12 @@
     "name" : "marks",
     "description" : "Service for CRUD operations on marks"
   }, {
+    "name" : "marks - consent",
+    "description" : "Service for consent related operations"
+  }, {
+    "name" : "marks - transcript",
+    "description" : "Service for fetching student transcript"
+  }, {
     "name" : "attendance",
     "description" : "Service for fetching and updating attendance"
   }, {
@@ -285,7 +291,7 @@
           "name" : "semester",
           "in" : "query",
           "schema" : {
-            "type" : "string"
+            "type" : "integer"
           },
           "required" : true
         } ],
@@ -325,6 +331,55 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/StudentEligible"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/marks" : {
+      "get" : {
+        "tags" : [ "marks" ],
+        "summary" : "Fetching marks of all students",
+        "parameters" : [ {
+          "name" : "school",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "branch",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "program",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "course",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "semester",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Marks"
                 }
               }
             }
@@ -550,6 +605,34 @@
             "type" : "string"
           },
           "eligible" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Marks" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "course" : {
+            "type" : "string"
+          },
+          "distribution" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Distribution"
+            }
+          }
+        }
+      },
+      "Distribution" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "marks" : {
             "type" : "string"
           }
         }
